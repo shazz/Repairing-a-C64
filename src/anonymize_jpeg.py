@@ -20,17 +20,17 @@ for imgfile in files:
             print("\t{0} = {1}".format(TAGS.get(k), v))
         print("EXIF data will be removed")
 
-    data = list(image.getdata())
-    image_stripped = Image.new(image.mode, image.size)
-    image_stripped.putdata(data)
-    image_stripped.save(imgfile, optimize=True)
-    print("Stripped image saved: {0}".format(imgfile))
+        data = list(image.getdata())
+        image_stripped = Image.new(image.mode, image.size)
+        image_stripped.putdata(data)
+        image_stripped.save(imgfile, optimize=True)
+        print("Stripped image saved: {0}".format(imgfile))
 
-    width, height = image_stripped.size
-    ratio = width/height
+        width, height = image_stripped.size
+        ratio = width/height
 
-    image_stripped_small = image_stripped.resize((512,int(512/ratio)),Image.ANTIALIAS)
-    image_stripped_small.save(os.path.splitext(imgfile)[0] + "_TN.JPG",optimize=True)
-    print("Thumbnail image saved: {0}".format(os.path.splitext(imgfile)[0] + "_TN.JPG"))
-    #else:
-    #    print("No EXIF metadata found, skipping")
+        image_stripped_small = image_stripped.resize((512,int(512/ratio)),Image.ANTIALIAS)
+        image_stripped_small.save(os.path.splitext(imgfile)[0] + "_TN.JPG",optimize=True)
+        print("Thumbnail image saved: {0}".format(os.path.splitext(imgfile)[0] + "_TN.JPG"))
+    else:
+        print("No EXIF metadata found, skipping")
